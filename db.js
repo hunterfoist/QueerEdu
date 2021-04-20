@@ -18,4 +18,21 @@ sequelize.authenticate().then(
         console.log(err);
     }
 );
-   module.exports = sequelize;
+
+const User = sequelize.import('./models/user-model');
+const Lesson = sequelize.import('./models/lesson-model');
+const Post = sequelize.import('./models/post-model');
+
+
+
+User.hasMany(Lesson)
+Lesson.belongsTo(User)
+User.hasMany(Post)
+Lesson.belongsTo(User)
+module.exports = {
+  User,
+  Lesson,
+  Post,
+};
+
+module.exports = sequelize;

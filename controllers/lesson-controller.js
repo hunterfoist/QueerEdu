@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Lesson } = require("../models");
+const Lesson = require('../db').import('../models/lesson-model');
 const validateSession = require("../middleware/validate-session");
 const router = Router();
 
@@ -29,7 +29,7 @@ router.get("/getmylessons", validateSession, (req, res) => {
         res.json({message: "You are not an teacher and therefore ineligible to view user lessons"})
       }
     let owner_id = req.user.id
-  lesson.findAll({
+  Lesson.findAll({
     where: {owner_id: owner_id}
 })
   .then(lessons => res.status(200).json(lessons))

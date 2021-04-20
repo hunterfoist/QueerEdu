@@ -5,6 +5,7 @@ let sequelize = require('./db');
 
 let lesson = require('./controllers/lesson-controller');
 let user = require('./controllers/user-controller');
+let post = require('./controllers/post-controller')
 
 
 sequelize.sync();
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use('/user', user);
 app.use("/lesson", lesson);
+app.use("/post", post)
 
 
 app.listen(3000, function(){
