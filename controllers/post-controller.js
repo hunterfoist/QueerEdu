@@ -5,7 +5,7 @@ const router = Router();
 
 
 router.post('/createpost', validateSession, (req, res) => {
-    if (req.user.teacherOrStudent != 'Student'){
+    if (req.user.teacherOrStudent != 'Teacher'){
         res.json({message: "You are not an teacher and therefore ineligible to create a post"})
       }
     
@@ -24,7 +24,7 @@ router.post('/createpost', validateSession, (req, res) => {
 
 
 router.get("/getmyposts", validateSession, (req, res) => {
-    if (req.user.teacherOrStudent != 'Student'){
+    if (req.user.teacherOrStudent != 'Teacher'){
         res.json({message: "You are not an teacher and therefore ineligible to view user posts"})
       }
     let owner_id = req.user.id
@@ -36,7 +36,7 @@ router.get("/getmyposts", validateSession, (req, res) => {
 });
 
 router.put('/updatepost/:id', validateSession, function(req, res) {
-    if (req.user.teacherOrStudent != 'Student'){
+    if (req.user.teacherOrStudent != 'Teacher'){
         res.json({message: "You are not an teacher and therefore ineligible to update a post"})
       }
     const updatePosts = {
@@ -53,7 +53,7 @@ router.put('/updatepost/:id', validateSession, function(req, res) {
 
 
 router.delete('/deletepost/:id', validateSession, function(req, res) {
-    if (req.user.teacherOrStudent != 'Student'){
+    if (req.user.teacherOrStudent != 'Teacher'){
         res.json({message: "You are not an teacher and therefore ineligible to delete a post"})
       }
 

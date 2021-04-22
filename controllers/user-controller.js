@@ -1,3 +1,4 @@
+require("dotenv").config;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { Router } = require("express");
@@ -22,15 +23,17 @@ router.post("/create", function (req, res) {
 
     })
       .then(function createSuccess(user) {
-        let token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+        let token = jwt.sign({ id: user.id }, "secret", {
           expiresIn: 60 * 60 * 24,
         }); 
   
-        res.json({
+        res.status(200).json({
           user: user,
           message: "User successfully created!",
           sessionToken: token,
         });
+      }, function error(err){
+        res.send(err)
       })
       .catch((err) => res.status(500).json({ error: err }));
   });
@@ -48,7 +51,7 @@ router.post("/create", function (req, res) {
             matches
           ) {
             if (matches) {
-              let token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+              let token = jwt.sign({ id: user.id }, "secret", {
                 expiresIn: 60 * 60 * 24,
               });
   

@@ -5,7 +5,7 @@ const router = Router();
 
 
 router.post('/createlesson', validateSession, (req, res) => {
-    if (req.user.teacherOrStudent != 'Student'){
+    if (req.user.teacherOrStudent != 'Teacher'){
         res.json({message: "You are not an teacher and therefore ineligible to create a lesson"})
       }
     
@@ -25,7 +25,7 @@ router.post('/createlesson', validateSession, (req, res) => {
 
 
 router.get("/getmylessons", validateSession, (req, res) => {
-    if (req.user.teacherOrStudent != 'Student'){
+    if (req.user.teacherOrStudent != 'Teacher'){
         res.json({message: "You are not an teacher and therefore ineligible to view user lessons"})
       }
     let owner_id = req.user.id
@@ -37,7 +37,7 @@ router.get("/getmylessons", validateSession, (req, res) => {
 });
 
 router.put('/updatelesson/:id', validateSession, function(req, res) {
-    if (req.user.teacherOrStudent != 'Student'){
+    if (req.user.teacherOrStudent != 'Teacher'){
         res.json({message: "You are not an teacher and therefore ineligible to update a lesson"})
       }
     const updateLessons = {
@@ -54,7 +54,7 @@ router.put('/updatelesson/:id', validateSession, function(req, res) {
 
 
 router.delete('/deletelesson/:id', validateSession, function(req, res) {
-    if (req.user.teacherOrStudent != 'Student'){
+    if (req.user.teacherOrStudent != 'Teacher'){
         res.json({message: "You are not an teacher and therefore ineligible to delete a lesson"})
       }
 
