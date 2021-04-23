@@ -12,7 +12,8 @@ router.post('/createlesson', validateSession, (req, res) => {
     const createLesson = {
       lessonName: req.body.lesson.lessonName,
       lessonDescription: req.body.lesson.lessonDescription,
-      fileUpload: req.body.lesson.fileUpload
+      fileUpload: req.body.lesson.fileUpload,
+      userId: req.user.id
 
   } 
   Lesson.create(createLesson)
@@ -28,9 +29,9 @@ router.get("/getmylessons", validateSession, (req, res) => {
     if (req.user.teacherOrStudent != 'Teacher'){
         res.json({message: "You are not an teacher and therefore ineligible to view user lessons"})
       }
-    let owner_id = req.user.id
+    let userId = req.user.id
   Lesson.findAll({
-    where: {owner_id: owner_id}
+    where: {userId: userId}
 })
   .then(lessons => res.status(200).json(lessons))
   .catch(err => res.status(500).json({error: err}))
@@ -43,7 +44,8 @@ router.put('/updatelesson/:id', validateSession, function(req, res) {
     const updateLessons = {
         lessonName: req.body.lesson.lessonName,
         lessonDescription: req.body.lesson.lessonDescription,
-        fileUpload: req.body.lesson.fileUpload
+        fileUpload: req.body.lesson.fileUpload,
+        userId: req.user.id
   };
   const query = { where: {id: req.params.id}};
 
@@ -58,7 +60,7 @@ router.delete('/deletelesson/:id', validateSession, function(req, res) {
         res.json({message: "You are not an teacher and therefore ineligible to delete a lesson"})
       }
 
-    const query = { where: { id: req.params.id, owner_id: req.user.id}};
+    const query = { where: { id: req.params.id, userId: req.user.id}};
 Lesson.destroy(query)
 .then((response) =>
 res.status(200).json({

@@ -12,7 +12,8 @@ router.post('/createpost', validateSession, (req, res) => {
     const createPost = {
       postTitle: req.body.post.postTitle,
       postDescription: req.body.post.postDescription,
-      imageUpload: req.body.post.imageUpload
+      imageUpload: req.body.post.imageUpload,
+      userId: req.user.id
 
   } 
   Post.create(createPost)
@@ -27,9 +28,9 @@ router.get("/getmyposts", validateSession, (req, res) => {
     if (req.user.teacherOrStudent != 'Teacher'){
         res.json({message: "You are not an teacher and therefore ineligible to view user posts"})
       }
-    let owner_id = req.user.id
+    let userId = req.user.id
   Post.findAll({
-    where: {owner_id: owner_id}
+    where: {userId: userId}
 })
   .then(posts => res.status(200).json(posts))
   .catch(err => res.status(500).json({error: err}))
@@ -42,7 +43,8 @@ router.put('/updatepost/:id', validateSession, function(req, res) {
     const updatePosts = {
         postTitle: req.body.post.postTitle,
         postDescription: req.body.post.postDescription,
-        imageUpload: req.body.post.imageUpload
+        imageUpload: req.body.post.imageUpload,
+        userId: req.user.id
   };
   const query = { where: {id: req.params.id}};
 
@@ -57,7 +59,7 @@ router.delete('/deletepost/:id', validateSession, function(req, res) {
         res.json({message: "You are not an teacher and therefore ineligible to delete a post"})
       }
 
-    const query = { where: { id: req.params.id, owner_id: req.user.id}};
+    const query = { where: { id: req.params.id, userId: req.user.id}};
 Post.destroy(query)
 .then((response) =>
 res.status(200).json({
