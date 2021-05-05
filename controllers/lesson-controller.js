@@ -5,9 +5,9 @@ const router = Router();
 
 
 router.post('/createlesson', validateSession, (req, res) => {
-    if (req.user.teacherOrStudent != 'Teacher'){
-        res.json({message: "You are not an teacher and therefore ineligible to create a lesson"})
-      }
+    // if (req.user.teacherOrStudent != 'Teacher'){
+    //     res.json({message: "You are not an teacher and therefore ineligible to create a lesson"})
+    //   }
     
     const createLesson = {
       lessonName: req.body.lesson.lessonName,
@@ -26,9 +26,9 @@ router.post('/createlesson', validateSession, (req, res) => {
 
 
 router.get("/getmylessons", validateSession, (req, res) => {
-    if (req.user.teacherOrStudent != 'Teacher'){
-        res.json({message: "You are not an teacher and therefore ineligible to view user lessons"})
-      }
+    // if (req.user.teacherOrStudent != 'Teacher'){
+    //     res.json({message: "You are not an teacher and therefore ineligible to view user lessons"})
+    //   }
     let userId = req.user.id
   Lesson.findAll({
     where: {userId: userId}
@@ -38,9 +38,9 @@ router.get("/getmylessons", validateSession, (req, res) => {
 });
 
 router.put('/updatelesson/:id', validateSession, function(req, res) {
-    if (req.user.teacherOrStudent != 'Teacher'){
-        res.json({message: "You are not an teacher and therefore ineligible to update a lesson"})
-      }
+    // if (req.user.teacherOrStudent != 'Teacher'){
+    //     res.json({message: "You are not an teacher and therefore ineligible to update a lesson"})
+    //   }
     const updateLessons = {
         lessonName: req.body.lesson.lessonName,
         lessonDescription: req.body.lesson.lessonDescription,
@@ -56,9 +56,9 @@ router.put('/updatelesson/:id', validateSession, function(req, res) {
 
 
 router.delete('/deletelesson/:id', validateSession, function(req, res) {
-    if (req.user.teacherOrStudent != 'Teacher'){
-        res.json({message: "You are not an teacher and therefore ineligible to delete a lesson"})
-      }
+    // if (req.user.teacherOrStudent != 'Teacher'){
+    //     res.json({message: "You are not an teacher and therefore ineligible to delete a lesson"})
+    //   }
 
     const query = { where: { id: req.params.id, userId: req.user.id}};
 Lesson.destroy(query)

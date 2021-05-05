@@ -5,9 +5,9 @@ const router = Router();
 
 
 router.post('/createpost', validateSession, (req, res) => {
-    if (req.user.teacherOrStudent != 'Teacher'){
-        res.json({message: "You are not an teacher and therefore ineligible to create a post"})
-      }
+    // if (req.user.teacherOrStudent != 'Teacher'){
+    //     res.json({message: "You are not an teacher and therefore ineligible to create a post"})
+    //   }
     
     const createPost = {
       postTitle: req.body.post.postTitle,
@@ -25,9 +25,9 @@ router.post('/createpost', validateSession, (req, res) => {
 
 
 router.get("/getmyposts", validateSession, (req, res) => {
-    if (req.user.teacherOrStudent != 'Teacher'){
-        res.json({message: "You are not an teacher and therefore ineligible to view user posts"})
-      }
+    // if (req.user.teacherOrStudent != 'Teacher'){
+    //     res.json({message: "You are not an teacher and therefore ineligible to view user posts"})
+    //   }
     let userId = req.user.id
   Post.findAll({
     where: {userId: userId}
@@ -37,9 +37,9 @@ router.get("/getmyposts", validateSession, (req, res) => {
 });
 
 router.put('/updatepost/:id', validateSession, function(req, res) {
-    if (req.user.teacherOrStudent != 'Teacher'){
-        res.json({message: "You are not an teacher and therefore ineligible to update a post"})
-      }
+    // if (req.user.teacherOrStudent != 'Teacher'){
+    //     res.json({message: "You are not an teacher and therefore ineligible to update a post"})
+    //   }
     const updatePosts = {
         postTitle: req.body.post.postTitle,
         postDescription: req.body.post.postDescription,
@@ -55,9 +55,9 @@ router.put('/updatepost/:id', validateSession, function(req, res) {
 
 
 router.delete('/deletepost/:id', validateSession, function(req, res) {
-    if (req.user.teacherOrStudent != 'Teacher'){
-        res.json({message: "You are not an teacher and therefore ineligible to delete a post"})
-      }
+    // if (req.user.teacherOrStudent != 'Teacher'){
+    //     res.json({message: "You are not an teacher and therefore ineligible to delete a post"})
+    //   }
 
     const query = { where: { id: req.params.id, userId: req.user.id}};
 Post.destroy(query)

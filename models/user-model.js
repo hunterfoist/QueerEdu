@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             },
 
             gradeLevel:{
-                type:  DataTypes.INTEGER,
+                type:  DataTypes.STRING,
                 allowNull: false,
             },
 
