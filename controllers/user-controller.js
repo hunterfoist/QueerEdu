@@ -31,6 +31,7 @@ router.post("/create", function (req, res) {
           user: user,
           message: "User successfully created!",
           sessionToken: token,
+          teacherOrStudent: user.teacherOrStudent
         });
       }, function error(err){
         res.send(err)
@@ -59,6 +60,7 @@ router.post("/create", function (req, res) {
                 user: user,
                 message: "User successfully logged in!",
                 sessionToken: token,
+                teacherOrStudent: user.teacherOrStudent
               });
             } else {
               res.status(502).send({ error: "Login Failed" });

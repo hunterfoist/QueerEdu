@@ -37,6 +37,18 @@ router.get("/getmylessons", validateSession, (req, res) => {
   .catch(err => res.status(500).json({error: err}))
 });
 
+router.get("/getalllessons",  (req, res) => {
+  // if (req.user.teacherOrStudent != 'Teacher'){
+  //     res.json({message: "You are not an teacher and therefore ineligible to view user posts"})
+  //   }
+  
+Lesson.findAll({
+  
+})
+.then(lessons => res.status(200).json(lessons))
+.catch(err => res.status(500).json({error: err}))
+});
+
 router.put('/updatelesson/:id', validateSession, function(req, res) {
     // if (req.user.teacherOrStudent != 'Teacher'){
     //     res.json({message: "You are not an teacher and therefore ineligible to update a lesson"})

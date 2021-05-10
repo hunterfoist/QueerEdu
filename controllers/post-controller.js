@@ -12,7 +12,7 @@ router.post('/createpost', validateSession, (req, res) => {
     const createPost = {
       postTitle: req.body.post.postTitle,
       postDescription: req.body.post.postDescription,
-      imageUpload: req.body.post.imageUpload,
+      fileUpload: req.body.post.fileUpload,
       userId: req.user.id
 
   } 
@@ -36,6 +36,18 @@ router.get("/getmyposts", validateSession, (req, res) => {
   .catch(err => res.status(500).json({error: err}))
 });
 
+router.get("/getallposts",  (req, res) => {
+  // if (req.user.teacherOrStudent != 'Teacher'){
+  //     res.json({message: "You are not an teacher and therefore ineligible to view user posts"})
+  //   }
+  
+Post.findAll({
+  
+})
+.then(posts => res.status(200).json(posts))
+.catch(err => res.status(500).json({error: err}))
+});
+
 router.put('/updatepost/:id', validateSession, function(req, res) {
     // if (req.user.teacherOrStudent != 'Teacher'){
     //     res.json({message: "You are not an teacher and therefore ineligible to update a post"})
@@ -43,7 +55,7 @@ router.put('/updatepost/:id', validateSession, function(req, res) {
     const updatePosts = {
         postTitle: req.body.post.postTitle,
         postDescription: req.body.post.postDescription,
-        imageUpload: req.body.post.imageUpload,
+        fileUpload: req.body.post.fileUpload,
         userId: req.user.id
   };
   const query = { where: {id: req.params.id}};
